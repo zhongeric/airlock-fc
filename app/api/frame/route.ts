@@ -1,4 +1,5 @@
 import { FrameRequest, getFrameAccountAddress } from '@coinbase/onchainkit';
+import { kv } from '@vercel/kv';
 import { NextRequest, NextResponse } from 'next/server';
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
@@ -18,8 +19,30 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   </head></html>`);
 }
 
-export async function POST(req: NextRequest): Promise<Response> {
-  return getResponse(req);
+export async function POST(req: NextRequest): Promise<NextResponse> {
+  const body: {
+    price: string;
+    token: string;
+    chain_id: string;
+    proposer: string;
+  } = await req.json();
+  const proposedPrice = body.price;
+  const token = body.token;
+
+  await kv.set(`tokens:${token}_${body.chain_id}`, proposedPrice);
+
+
+}
+
+export async function GET(request: NextRequest) {
+  const prices = await kv.hgetall('tokens:USDC');
+  
+  return NextResponse.json(
+    prices,
+    {
+      status: 200,
+    },
+  );
 }
 
 export const dynamic = 'force-dynamic';
