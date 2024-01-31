@@ -26,7 +26,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   }
 
   const { searchParams } = new URL(req.url);
-  const webhookUrl = searchParams.get('webhook_url');
+  const webhookUrl = searchParams.get('webhookUrl');
 
   if(!webhookUrl) {
     return new NextResponse(`<!DOCTYPE html><html><head>
