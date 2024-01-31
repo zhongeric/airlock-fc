@@ -11,6 +11,13 @@ export const ELIGIBLE_IMG = HOST + "/yipee.png";
 export const NOT_ELIGIBLE_IMG = HOST + "/sorry.png";
 export const ERROR_IMG = "";
 
+function truncateAddress(address: string) {
+  if (!address || address.length < 42) {
+      return address; // or handle error
+  }
+  return address.substring(0, 6) + '...' + address.substring(address.length - 4);
+}
+
 export type WebhookUrlResponse = {
   eligible: boolean;
   quantity?: number;
@@ -23,6 +30,15 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     accountAddress = await getFrameAccountAddress(body, { NEYNAR_API_KEY: process.env.NEYNAR_API_KEY });
   } catch (err) {
     console.error(err);
+  }
+
+  if(!accountAddress) {
+    return new NextResponse(`<!DOCTYPE html><html><head>
+      <meta property="fc:frame" content="vNext" />
+      <meta property="fc:frame:image" content="${ERROR_IMG}" />
+      <meta property="fc:frame:button:1" content="Error" />
+      <meta property="fc:frame:post_url" content="${BASE_URL}" />
+    </head></html>`);
   }
 
   const { searchParams } = new URL(req.url);
@@ -57,7 +73,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     </head></html>`);
   }
 
-  const successText = res.data.quantity ? `You are eligible for ${res.data.quantity} tokens` : `You are eligible`;
+  const successText = res.data.quantity ? `${truncateAddress(accountAddress)} is eligible for ${res.data.quantity} tokens` : `${truncateAddress(accountAddress)} is eligible`;
 
   return new NextResponse(`<!DOCTYPE html><html><head>
     <meta property="fc:frame" content="vNext" />
