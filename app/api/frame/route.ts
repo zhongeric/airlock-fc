@@ -7,8 +7,8 @@ export const HOST = "https://airlock-fc.vercel.app"
 export const BASE_URL = "https://airlock-fc.vercel.app/api/frame";
 export const DEFAULT_LANDING_IMG = HOST + "/airlock.png";
 export const NOT_FOUND_IMG = HOST + "/not-found.jpg";
-export const ELIGIBLE_IMG = HOST + "/success.png";
-export const NOT_ELIGIBLE_IMG = HOST + "/fail.png";
+export const ELIGIBLE_IMG = HOST + "/yipee.png";
+export const NOT_ELIGIBLE_IMG = HOST + "/sorry.png";
 export const ERROR_IMG = "";
 
 export type WebhookUrlResponse = {
