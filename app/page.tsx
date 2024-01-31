@@ -14,19 +14,39 @@ export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
+  const defaultFrameMetadata = getFrameMetadata({
+    buttons: ['Airlock secured'],
+    image: 'https://zizzamia.xyz/park-1.png',
+    post_url: '',
+  });
   // read route params
   const slug = searchParams.slug
-  if(!slug) throw new Error("No slug");
+  if(!slug) {
+    // TODO: path to choose popular projects here 
+    // generic metadata
+    return {
+      title: TITLE,
+      description: 'LFG',
+      openGraph: {
+        title: TITLE,
+        description: 'LFG',
+        images: ['https://zizzamia.xyz/park-1.png'],
+      },
+      other: {
+        ...defaultFrameMetadata
+      },
+    };
+  }
 
   const res = await db.selectFrom('projects')
     .select('webhookUrl')
     .where('slug', '=', slug)
     .executeTakeFirst();
-    
+
   const frameMetadata = getFrameMetadata({
-    buttons: ['Check eligibility'],
-    image: 'https://zizzamia.xyz/park-1.png',
-    post_url: `${BASE_URL}?webhookUrl=${res?.webhookUrl}`,
+      buttons: ['Check eligibility'],
+      image: 'https://zizzamia.xyz/park-1.png',
+      post_url: `${BASE_URL}?webhookUrl=${res?.webhookUrl}`,
   });
  
   return {
@@ -38,7 +58,7 @@ export async function generateMetadata(
       images: ['https://zizzamia.xyz/park-1.png'],
     },
     other: {
-      ...frameMetadata,
+      ...frameMetadata
     },
   };
 }
