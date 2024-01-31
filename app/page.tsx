@@ -1,17 +1,20 @@
 import { getFrameMetadata } from '@coinbase/onchainkit';
 import type { Metadata } from 'next';
+import { BASE_URL } from './api/frame/route';
+
+const TITLE = "Airlock"
 
 const frameMetadata = getFrameMetadata({
-  buttons: ['Next image'],
+  buttons: ['Check eligibility'],
   image: 'https://zizzamia.xyz/park-1.png',
-  post_url: 'https://zizzamia.xyz/api/frame',
+  post_url: BASE_URL,
 });
 
 export const metadata: Metadata = {
-  title: 'zizzamia.xyz',
+  title: TITLE,
   description: 'LFG',
   openGraph: {
-    title: 'zizzamia.xyz',
+    title: TITLE,
     description: 'LFG',
     images: ['https://zizzamia.xyz/park-1.png'],
   },
@@ -23,7 +26,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <h1>zizzamia.xyz</h1>
+      <h1>Airlock</h1>
     </>
   );
 }

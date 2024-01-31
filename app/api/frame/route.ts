@@ -3,10 +3,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '../kysely';
 import axios from 'axios';
 
-const BASE_URL = "https://seer-fc.vercel.app/api/frame";
-const ELIGIBLE_IMG = "";
-const NOT_ELIGIBLE_IMG = "";
-const ERROR_IMG = "";
+export const BASE_URL = "https://seer-fc.vercel.app/api/frame";
+export const ELIGIBLE_IMG = "";
+export const NOT_ELIGIBLE_IMG = "";
+export const ERROR_IMG = "";
 
 export type WebhookUrlResponse = {
   eligible: boolean;
@@ -83,7 +83,7 @@ export async function GET(req: NextRequest) {
       <meta property="fc:frame:post_url" content="${BASE_URL}" />
     </head></html>`);
   }
-
+ 
   const result = await db
     .selectFrom('projects')
     .selectAll()
