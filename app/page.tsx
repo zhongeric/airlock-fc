@@ -1,6 +1,7 @@
 import { getFrameMetadata } from '@coinbase/onchainkit';
 import type { Metadata, ResolvingMetadata } from 'next';
 import { BASE_URL } from '../app/api/frame/route';
+import { db } from './api/kysely';
 
 const TITLE = "Airlock"
 
@@ -15,14 +16,17 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   // read route params
   const slug = searchParams.slug
- 
-  // fetch data
-  // const product = await fetch(`https://.../${id}`).then((res) => res.json())
+  if(!slug) throw new Error("No slug");
 
+  const res = await db.selectFrom('projects')
+    .select('webhookUrl')
+    .where('slug', '=', slug)
+    .executeTakeFirst();
+    
   const frameMetadata = getFrameMetadata({
     buttons: ['Check eligibility'],
     image: 'https://zizzamia.xyz/park-1.png',
-    post_url: `${BASE_URL}?slug=${slug}`,
+    post_url: `${BASE_URL}?webhookUrl=${res?.webhookUrl}`,
   });
  
   return {
