@@ -16,8 +16,7 @@ export function GET(request: Request) {
     const checksummed = ethers.isAddress(address);
     
     return Response.json({
-        eligible: checksummed,
-        quantity: 100
+        eligible: checksummed
     }, { 
         status: 200
     })
