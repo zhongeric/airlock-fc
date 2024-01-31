@@ -3,8 +3,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '../kysely';
 import axios from 'axios';
 
-export const HOST = "https://seer-fc.vercel.app"
-export const BASE_URL = "https://seer-fc.vercel.app/api/frame";
+export const HOST = "https://airlock-fc.vercel.app"
+export const BASE_URL = "https://airlock-fc.vercel.app/api/frame";
 export const DEFAULT_LANDING_IMG = HOST + "/airlock.png";
 export const NOT_FOUND_IMG = HOST + "/not-found.jpg";
 export const ELIGIBLE_IMG = HOST + "/success.png";
