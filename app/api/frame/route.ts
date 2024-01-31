@@ -3,7 +3,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '../kysely';
 import axios from 'axios';
 
+export const HOST = "https://seer-fc.vercel.app"
 export const BASE_URL = "https://seer-fc.vercel.app/api/frame";
+export const NOT_FOUND_IMG = HOST + "/not-found.jpg";
 export const ELIGIBLE_IMG = "";
 export const NOT_ELIGIBLE_IMG = "";
 export const ERROR_IMG = "";
@@ -28,7 +30,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   if(!webhookUrl) {
     return new NextResponse(`<!DOCTYPE html><html><head>
       <meta property="fc:frame" content="vNext" />
-      <meta property="fc:frame:image" content="https://zizzamia.xyz/park-2.png" />
+      <meta property="fc:frame:image" content="${NOT_FOUND_IMG}" />
       <meta property="fc:frame:button:1" content="Project not found" />
       <meta property="fc:frame:post_url" content="${BASE_URL}" />
     </head></html>`);
@@ -78,7 +80,7 @@ export async function GET(req: NextRequest) {
   if(!slug) {
     return new NextResponse(`<!DOCTYPE html><html><head>
       <meta property="fc:frame" content="vNext" />
-      <meta property="fc:frame:image" content="https://zizzamia.xyz/park-2.png" />
+      <meta property="fc:frame:image" content="${NOT_FOUND_IMG}" />
       <meta property="fc:frame:button:1" content="Project not found" />
       <meta property="fc:frame:post_url" content="${BASE_URL}" />
     </head></html>`);
@@ -93,7 +95,7 @@ export async function GET(req: NextRequest) {
   if(!result) {
     return new NextResponse(`<!DOCTYPE html><html><head>
       <meta property="fc:frame" content="vNext" />
-      <meta property="fc:frame:image" content="https://zizzamia.xyz/park-2.png" />
+      <meta property="fc:frame:image" content="${NOT_FOUND_IMG}" />
       <meta property="fc:frame:button:1" content="Project not found" />
       <meta property="fc:frame:post_url" content="${BASE_URL}" />
     </head></html>`);

@@ -10,6 +10,8 @@ interface ProjectsTable {
   slug: string
   webhookUrl: string
   image: string
+  // URL to link out to with redirects
+  externalUrl?: string
 
   // You can specify a different type for each operation (select, insert and
   // update) using the `ColumnType<SelectType, InsertType, UpdateType>`
