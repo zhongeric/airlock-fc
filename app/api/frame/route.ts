@@ -57,7 +57,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     </head></html>`);
   }
 
-  const successText = res.data.quantity ? `You are eligible for ${res.data.quantity}` : `You are eligible`;
+  const successText = res.data.quantity ? `You are eligible for ${res.data.quantity} tokens` : `You are eligible`;
 
   return new NextResponse(`<!DOCTYPE html><html><head>
     <meta property="fc:frame" content="vNext" />
