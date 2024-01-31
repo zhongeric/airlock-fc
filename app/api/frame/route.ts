@@ -5,9 +5,10 @@ import axios from 'axios';
 
 export const HOST = "https://seer-fc.vercel.app"
 export const BASE_URL = "https://seer-fc.vercel.app/api/frame";
+export const DEFAULT_LANDING_IMG = HOST + "/airlock.png";
 export const NOT_FOUND_IMG = HOST + "/not-found.jpg";
-export const ELIGIBLE_IMG = "";
-export const NOT_ELIGIBLE_IMG = "";
+export const ELIGIBLE_IMG = HOST + "/success.png";
+export const NOT_ELIGIBLE_IMG = HOST + "/fail.png";
 export const ERROR_IMG = "";
 
 export type WebhookUrlResponse = {
@@ -36,10 +37,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     </head></html>`);
   }
 
-  // Make the post to the webhook url, and process the response
-  const res = await axios.post<WebhookUrlResponse>(webhookUrl, {
-    accountAddress,
-  });
+  // Make the get request to the webhook url, and process the response
+  const res = await axios.get<WebhookUrlResponse>(`${webhookUrl}?address=${accountAddress}`);
   console.log(res.status);
   console.log(res.data);
 
