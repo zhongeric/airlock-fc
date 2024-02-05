@@ -11,6 +11,8 @@ export const ELIGIBLE_IMG = HOST + "/yipee.png";
 export const NOT_ELIGIBLE_IMG = HOST + "/sorry.png";
 export const ERROR_IMG = "";
 
+export const ENABLED = false;
+
 function truncateAddress(address: string) {
   if (!address || address.length < 42) {
       return address; // or handle error
@@ -92,7 +94,7 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const slug = searchParams.get('slug');
 
-  if(!slug) {
+  if(!slug || !ENABLED) {
     return new NextResponse(`<!DOCTYPE html><html><head>
       <meta property="fc:frame" content="vNext" />
       <meta property="fc:frame:image" content="${NOT_FOUND_IMG}" />
